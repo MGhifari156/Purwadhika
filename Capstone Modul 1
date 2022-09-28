@@ -1,0 +1,199 @@
+listStok = [
+    {
+        'Nama Barang': 'Pulpen',
+        'Stok' : 100,
+        'Merk' : 'Snowman',
+        'Harga' : 2500,
+        'Kode' : 'A123'
+    },
+    {
+        'Nama Barang': 'Pensil',
+        'Stok' : 50,
+        'Merk' : 'Faber Cst',
+        'Harga' : 4500,
+        'Kode' : 'A124'
+    },
+    {
+        'Nama Barang': 'Buku',
+        'Stok' : 25,
+        'Merk' : 'Butterfly',
+        'Harga' : 5000,
+        'Kode' : 'A125'
+    }
+]
+
+def atk():
+    if len(listStok) == 0 :
+        print('===Tidak ada data===')
+    else :
+        print('+++Daftar Alat Tulis Kantor di Gudang\n+++')
+        print('Nama Barang\t| Stok\t| Merk\t\t| Harga\t| Kode')
+        for i in range(len(listStok)):
+            print('{}\t\t| {}\t| {}\t| {}\t| {}'.format(listStok[i]['Nama Barang'],listStok[i]['Stok'],listStok[i]['Merk'],listStok[i]['Harga'],listStok[i]['Kode']))
+
+def add_atk():
+    while True:
+        NamaBarang = input('Masukkan Nama Barang : ')
+        for k in listStok:
+            if k['Nama Barang'] == NamaBarang :
+                print('===Data barang sudah ada===')
+                return
+        StockBarang = int(input('Masukkan Stok Barang : '))
+        MerkBarang = str(input('Masukkan Merk Barang : '))
+        HargaBarang = int(input('Masukkan Harga Barang : '))
+        KodeBarang = str(input('Masukkan Kode Barang : '))
+        while True:
+            a = input('Apakah data yang anda masukan telah benar (Y/T) :')
+            if (a == 'Y'):
+                listStok.append({
+                    'Nama Barang' : NamaBarang,
+                    'Stok' : StockBarang,
+                    'Merk' : MerkBarang,
+                    'Harga' : HargaBarang,
+                    'Kode' : KodeBarang
+                })
+                print('===Data tersimpan===')
+                return
+            elif (a == 'T'):
+                break
+
+def update_atk():
+    while True:
+        NamaBarang = input('Masukkan Nama Barang : ')
+        PunyaBarang = False
+        for i in listStok:
+            if i['Nama Barang'] == NamaBarang :
+                StockBarang = int(input('Masukkan Stok Barang : '))
+                while True:
+                    a = input('Apakah data yang anda masukan telah benar (Y/T) :')
+                    if (a == 'Y'):
+                        for k in listStok:
+                            if k['Nama Barang'] == NamaBarang :
+                                k.update({'Stok': StockBarang})
+                                print('===Data terupdate===')
+                                PunyaBarang = True
+                                return
+                    elif (a == 'T'):
+                        break
+        if PunyaBarang == False :
+            print ('===Barang tidak ditemukan===')
+            
+
+def delete_atk():
+    NamaBarang = str(input('Masukan nama barang yang ingin dihapus : '))
+    PunyaBarang = False
+    for i in listStok:
+        if i['Nama Barang'] == NamaBarang :
+            while True:
+                a = input('Apakah data ingin menghapus data (Y/T) :')
+                if (a == 'Y'):
+                    for k in listStok:
+                        if k['Nama Barang'] == NamaBarang :
+                            listStok.remove(k)
+                            print('===Data dihapus===')
+                            PunyaBarang = True
+                            return
+                elif (a == 'T'):
+                    break
+    if PunyaBarang == False :
+        print ('===Barang tidak ditemukan===')
+
+def show_menu():
+    print('Gudang Alat Tulis Kantor')
+    print(' ')
+    print('List Menu:')
+    print('1. Menampilkan Daftar ATK')
+    print('2. Menambahkan ATK')
+    print('3. Memperbarui Stok ATK')
+    print('4. Menghapus ATK')
+    print('5. Keluar dari program')
+
+def menu_1():
+    while True :
+        print('Data ATK di Gudang')
+        print(' ')
+        print('1. Tampilkan Seluruh Daftar ATK')
+        print('2. Tampilkan Data ATK Tertentu')
+        print('3. Kembali ke Menu Utama')
+        MenuSatu = input('Silahkan pilih sub menu (1-3) : ')
+        if(MenuSatu == '1') :
+            atk()
+        elif(MenuSatu == '2') :
+            atk_tertentu()
+        elif(MenuSatu == '3') :
+            break
+        else :
+            print('===Pilihan yang anda masukan salah===')
+        
+def atk_tertentu():
+    NamaBarang = input('Masukkan Nama Barang : ')
+    PunyaBarang = False
+    for i in listStok:
+        if i['Nama Barang'] == NamaBarang :
+            print(' Nama Barang\t| Stok\t| Merk\t\t| Harga\t| Kode')
+            print(' {}\t\t| {}\t| {}\t| {}\t| {}'.format(i['Nama Barang'],i['Stok'],i['Merk'],i['Harga'],i['Kode']))
+            PunyaBarang = True
+    if PunyaBarang == False :
+        print ('===Barang tidak ditemukan===')
+
+def menu_2():
+     while True :
+        print('Tambah Data ATK di Gudang')
+        print(' ')
+        print('1. Tambah Data ATK di Gudang')
+        print('2. Kembali ke Menu Utama')
+        MenuDua = input('Silahkan pilih sub menu (1-2) : ')
+        if(MenuDua == '1') :
+            add_atk()
+            atk()
+        elif(MenuDua == '2') :
+            break
+        else :
+            print('===Pilihan yang anda masukan salah===')
+
+def menu_3():
+     while True :
+        print('Memperbarui Stok ATK di Gudang')
+        print(' ')
+        print('1. Memperbarui Stok ATK di Gudang')
+        print('2. Kembali ke Menu Utama')
+        MenuTiga = input('Silahkan pilih sub menu (1-2) : ')
+        if(MenuTiga == '1') :
+            update_atk()
+            atk()
+        elif(MenuTiga == '2') :
+            break
+        else :
+            print('===Pilihan yang anda masukan salah===')
+
+def menu_4 ():
+    while True :
+        print('Hapus ATK di Gudang')
+        print(' ')
+        print('1. Hapus ATK di Gudang')
+        print('2. Kembali ke Menu Utama')
+        MenuEmpat = input('Silahkan pilih sub menu (1-2) : ')
+        if(MenuEmpat == '1') :
+            delete_atk()
+            atk()
+        elif(MenuEmpat == '2') :
+            break
+        else :
+            print('===Pilihan yang anda masukan salah===')
+
+while True :
+    show_menu()
+    PilihanMenu = input ('Masukkan angka Menu yang ingin dijalankan : ')
+    if(PilihanMenu == '1') :
+        menu_1()
+    elif(PilihanMenu == '2') :
+        menu_2()
+    elif(PilihanMenu == '3') :
+        menu_3()
+    elif(PilihanMenu == '4') :
+        menu_4()
+    elif(PilihanMenu == '5') :
+        break
+    else :
+        print('===Pilihan yang Anda Masukan Salah===')
+    
